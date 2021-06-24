@@ -49,7 +49,7 @@ fun main() {
                 } while (pago.isEmpty() || pago != "Efectivo" || pago != "Tarjeta")
                 usuario.setUsuario(nombreUsuario)
                 usuario.setPassword(passwordUsuario)
-                usuario.RegistroUsuario(usuario.getUsuario(),usuario.getPassword(),pago)
+                usuario.registroUsuario(usuario.getUsuario(),usuario.getPassword(),pago)
 
             }
 
@@ -83,10 +83,13 @@ fun main() {
                         val conductor = Conductor("Juan", 100, Automovil("Nissan", "Azul", "Versa"))
                         println()
 
+                        usuario.solicitarViaje(coordenadasActuales,coordenadaDestino,conductor)
+                        println()
                         //Escribe el código a ejecutar
                         println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
                         println()
-                        usuario.solicitarViaje(coordenadasActuales,coordenadaDestino,conductor)
+
+                        usuario.estadoViaje("Viaje Terminado")
                         break
                     } else
                         Salidado = false
