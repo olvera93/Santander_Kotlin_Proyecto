@@ -8,10 +8,7 @@ const val PRECIO_BASE = 30
 const val PRECIO_POR_COR : Int = 5
 
 fun main() {
-    val usuario: MutableMap <String, String> = mutableMapOf(
-        "Stuart" to "Stuart123",
-        "Marco" to "Marco123",
-        "Gonzalo" to "Gonzalo")
+
     var Salidado = false
     //Menu Inicio de sesion, Registrar usuario y salir de la aplicacion
     do {
@@ -32,9 +29,14 @@ fun main() {
                 print("Ingresa tu contraseña: ")
                 val passwordUsuario = readLine().toString()
 
-                var Aut = LoginUsuario(nombreUsuario,passwordUsuario,usuario)
-                if (Aut){
+                val usuario = Usuario()
+                usuario.setUsuario(nombreUsuario)
+                usuario.setPassword(passwordUsuario)
+                usuario.loginUsuario(nombreUsuario, passwordUsuario)
 
+
+
+                if (!usuario.getUsuario().equals("") && !usuario.getPassword().equals("")){
                     println()
                     /*
                     El usuario después de iniciar sesion tiene que ingresar sus coordenadas
@@ -46,8 +48,10 @@ fun main() {
                     print("Ingrese las coordenadas de su destino: ")
                     var coordenadaDestino = readLine()!!.toInt()
 
-                    val coordenas = ingresarCoordenadas(coordenadasActuales, coordenadaDestino)
-                    println("Usuario metio bien sus coordenadas? $coordenas")
+                    usuario.setCoorActuales(coordenadasActuales)
+                    usuario.setCoorDestino(coordenadaDestino)
+                    usuario.ingresarCoordenadas(coordenadasActuales, coordenadaDestino)
+
 
                     /*
                     El usuario después de poner sus coordenadas se le pedirá un método de pago
@@ -57,9 +61,11 @@ fun main() {
                         println()
                         print("Ingrese su método de pago: ")
                         val pago = readLine()!!.toString()
-                        val payment = metodoDePago(pago)
+                        usuario.setTipoPago(pago)
+                        usuario.metodoDePago(pago)
 
-                        when(pago) {
+
+                        when(usuario.getTipoPago()) {
                             "Efectivo" -> {
                                 println("Agregado Exitosamente el pago con efectivo")
                                 break
@@ -72,6 +78,9 @@ fun main() {
                                 println("METODO DE PAGO INCORRECTO")
                             }
                         }
+
+
+
                     } while (pago.isEmpty() || pago != "Efectivo" || pago != "Tarjeta")
                     println()
 
@@ -88,10 +97,10 @@ fun main() {
                     println("El costo de su viaje es: ${calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
                     println("El tiempo estimado de su viaje es: ${calcularCostoViaje(coordenadasActuales, coordenadaDestino) * 2}")
                     tiempoLlegadaChofer(coordenadasChofer, coordenadasActuales)
-
-
-
+                    
                     break
+
+
                 }
 
                 else
@@ -103,7 +112,7 @@ fun main() {
             2 -> {
                 println()
                 println("Usted selecciono Registro")
-                registroUsuario(usuario)
+                //registroUsuario(usuario)
             }
 
             3 -> Salidado=true
@@ -140,35 +149,6 @@ fun LoginUsuario(user: String, password: String, usuario: MutableMap<String,Stri
     val userValidate = validate(user,password)
 
     return userValidate
-}
-
-// Funcion para el ingresar las coordenadas del usuario
-fun ingresarCoordenadas(coordenadaActual: Int, coordenadaDestino: Int): Boolean {
-    fun validate (input: Int): Boolean {
-        if (input == null || input.equals("")){
-            return false
-        }
-        return true
-    }
-
-    val coorActualValidate = validate(coordenadaActual)
-    val coorDestinoValidate = validate(coordenadaDestino)
-
-    return coorActualValidate && coorDestinoValidate
-}
-
-//Funcion para validar que haya ingresado un metodo de pago
-fun metodoDePago(pago:String): Boolean {
-    fun validate(input: String): Boolean {
-        if (input.isEmpty()) {
-            println("NO HA INGRESADO NINGUN METODO DE PAGO")
-            return false
-        }
-        return true
-    }
-    val pagoValidate = validate(pago)
-
-    return pagoValidate
 }
 
 //Funcion para calcular el costo del viaje
