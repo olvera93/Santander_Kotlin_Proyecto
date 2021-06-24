@@ -29,7 +29,7 @@ fun main() {
                 print("Ingresa tu contraseña: ")
                 val passwordUsuario = readLine().toString()
                 do{
-                    println("Ingresa tu forma de pago: Efectivo o Tarjeta: ")
+                    print("Ingresa tu forma de pago: Efectivo o Tarjeta: ")
                     pago = readLine()!!.toString()
                     when(pago) {
                         "Efectivo" -> {
@@ -62,7 +62,7 @@ fun main() {
                 print("Ingresa tu contraseña: ")
                 val passwordUsuario = readLine().toString()
 
-                if (usuario.loginUsuario(usuario.getUsuario(), usuario.getPassword())) {
+                if (usuario.loginUsuario(nombreUsuario, passwordUsuario)) {
                     if (!usuario.getUsuario().equals("") && !usuario.getPassword().equals("")) {
                         println()
                         /*
@@ -79,22 +79,15 @@ fun main() {
                         usuario.ingresarCoordenadas(usuario.getCoorActuales(), usuario.getCoorDestino())
 
                         println()
-                        // Muestra al chofer
-                        val nombre = "Paco"
-                        val coordenadasChofer = 100
-                        println("El nombre de su chofer es: $nombre")
-                        println("se encuentra en la coordenada: $coordenadasChofer")
+                        // Muestra los datos del conductor
+                        val conductor = Conductor("Juan", 100, Automovil("Nissan", "Azul", "Versa"))
                         println()
-                        /*
+
                         //Escribe el código a ejecutar
-                        println("El costo de su viaje es: ${calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
-                        println("El tiempo estimado de su viaje es: ${calcularCostoViaje(coordenadasActuales, coordenadaDestino) * 2}")
-                        tiempoLlegadaChofer(coordenadasChofer, coordenadasActuales)
-
-                         */
+                        println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
+                        println()
+                        usuario.solicitarViaje(coordenadasActuales,coordenadaDestino,conductor)
                         break
-
-
                     } else
                         Salidado = false
                 }
@@ -110,26 +103,4 @@ fun main() {
         }while (!Salidado)
 // Impresion
 //println("$nombreCliente verifica las placas y la foto del conductor")
-    }
-
-    //Funcion para calcular el costo del viaje
-    fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
-        var distancia: Int = (coorDestino - coorActual)
-        var precioViaje: Float = (PRECIO_POR_COR * distancia.toFloat()) + PRECIO_BASE
-        return precioViaje
-    }
-    fun tiempoLlegadaChofer(coorChofer: Int, coorUsuario:Int): Float {
-        var diferenciaCoordenadas = coorChofer - coorUsuario
-        var tiempoLlegada: Float = diferenciaCoordenadas.toFloat()
-        val proximidad = diferenciaCoordenadas
-        when (proximidad){
-            0 -> println("Su chofer ha llegado")
-            in 1..100 -> println("Su Chofer tardara en llegar ${(tiempoLlegada)*2} segundos")
-            in 100..200 -> println("Su Chofer tardara en llegar ${(tiempoLlegada)*5.5} segundos")
-            in 200..250 -> println("Su Chofer tardara en llegar ${(tiempoLlegada)*8.5} segundos")
-            else -> {
-                println("Su chofer esta muy lejos de su ubicacion")
-            }
-        }
-        return proximidad.toFloat()
     }
