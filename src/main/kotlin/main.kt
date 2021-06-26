@@ -82,14 +82,34 @@ fun main() {
                         // Muestra los datos del conductor
                         val conductor = Conductor("Juan", 100, Automovil("Nissan", "Azul", "Versa"))
                         println()
-
                         usuario.solicitarViaje(coordenadasActuales,coordenadaDestino,conductor)
-                        println()
-                        //Escribe el código a ejecutar
-                        println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
-                        println()
+                        do {
+                            println("Desea cancelar su viaje")
+                            println("1.- Si")
+                            println("2.- No")
+                            var opcionMenu2= readLine()?.toInt()
+                            when(opcionMenu2){
+                                1 -> {
+                                    usuario.cancelarViaje()
+                                }
 
-                        usuario.estadoViaje("Viaje Terminado")
+                                2 -> {
+                                    println()
+                                    //Escribe el código a ejecutar
+                                    println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
+                                    println()
+                                    usuario.estadoViaje("Viaje Terminado")
+                                    break
+                                }
+
+                                else -> {
+                                    println()
+                                    println("OPCIÓN INVALIDA!!")
+                                }
+                            }
+
+                        }while (!Salidado)
+
                         break
                     } else
                         Salidado = false

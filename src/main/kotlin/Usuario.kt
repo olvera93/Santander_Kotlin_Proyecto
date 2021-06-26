@@ -4,13 +4,16 @@ import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
 
-class Usuario {
+class Usuario: Viaje(), CancelarViaje, Promocion {
 
     private var usuario: String = ""
     private var password: String = ""
     private var coorActuales: Int = 0
     private var coorDestino: Int = 0
     var condor: Int = 0
+
+    override  val discount = 10 //es porcentaje, o sea 10%
+    override val typeDiscount = 0 //0 para porcentaje, 1 para cantidad
     private var tipoPago: String = ""
 
         set(value) {
@@ -97,6 +100,7 @@ class Usuario {
         val userValidate = validate(user,password)
         return userValidate
     }
+
     //Funcion para solicitar  viaje
     fun solicitarViaje(coordenadaActual: Int,coordenadaDestino: Int,coorChofer: Conductor): Float{
         var diferenciaCoordenadas = coorChofer.getCoordenadasConductor() - coordenadaActual
@@ -107,10 +111,10 @@ class Usuario {
             in 1..100 ->{
                 for(i: Int in proximidad downTo -1){
                     tiempoLlegada-= condor
-                    if (tiempoLlegada < 0) {
+                    if (tiempoLlegada <= 0) {
                         break
                     } else {
-                        println("Su Chofer tardara en llegar ${(((tiempoLlegada)*2)).toInt()} segundos")
+                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
                         condor ++
                     }
 
@@ -124,7 +128,7 @@ class Usuario {
                     if ( tiempoLlegada < 0 ) {
                         break
                     } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada) * 5.3).toInt()} segundos")
+                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
                         condor ++
                     }
 
@@ -138,32 +142,22 @@ class Usuario {
                     if (tiempoLlegada < 0) {
                         break
                     } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada) * 8.6).toInt()} segundos")
+                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
                         condor ++
                     }
 
                 }
 
             }else -> {
+
                 println("Su chofer esta muy lejos de su ubicacion")
             }
         }
 
         return proximidad.toFloat()
     }
-    // Funcion para el ingresar las coordenadas del usuario
-    fun ingresarCoordenadas(coordenadaActual: Int, coordenadaDestino: Int): Boolean {
-        fun validate (input: Int): Boolean {
-            if (input == null || input.equals("")){
-                println("Error al ingresar coordenadas")
-                return false
-            }
-            return true
-        }
-        val coorActualValidate = validate(coordenadaActual)
-        val coorDestinoValidate = validate(coordenadaDestino)
-        return coorActualValidate && coorDestinoValidate
-    }
+
+
     //Funcion para validar que haya ingresado un metodo de pago
     fun metodoDePago(pago:String): Boolean {
         fun validate(input: String): Boolean {
@@ -175,6 +169,16 @@ class Usuario {
         }
         val pagoValidate = validate(pago)
         return pagoValidate
+    }
+
+    override fun cancelarViaje() {
+        if (reserved) {
+            reserved = false
+            paidAmount = 0
+            println("Viaje se ha cancelado exitosamente")
+        } else {
+            println("No has hecho ningun viaje")
+        }
     }
     fun registroUsuario(usuario: String,password: String, pago: String){ //Comprobacion que en el registro no tenga valores invalidos
         if(usuario.isEmpty()||password.isEmpty()){
@@ -195,14 +199,17 @@ class Usuario {
     //
     public fun estadoViaje(viajeObj: String){
         when(viajeObj){
-
             "Viaje Terminado" -> {
                 println()
                 estatus = "Viaje Terminado"
-
             }
             else -> println("Aun no acaba su viaje")
 
         }
+    }
+
+    override fun getPrice(coordenadaDestino: Int): Int {
+        val lugar = coordenadaDestino
+        return if (lugar==null) 0 else lugar * coordenadaDestino //regresamos 0 si no hay tarifa, si sí, hacemos el cálculo
     }
 }
