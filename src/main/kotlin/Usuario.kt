@@ -4,13 +4,13 @@ import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
 
-class Usuario: Viaje(), CancelarViaje, Promocion {
+class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
 
     private var usuario: String = ""
     private var password: String = ""
     private var coorActuales: Int = 0
     private var coorDestino: Int = 0
-    var condor: Int = 0
+    var contadorTiempo: Int = 0
 
     override  val discount = 10 //es porcentaje, o sea 10%
     override val typeDiscount = 0 //0 para porcentaje, 1 para cantidad
@@ -101,21 +101,25 @@ class Usuario: Viaje(), CancelarViaje, Promocion {
         return userValidate
     }
 
-    //Funcion para solicitar  viaje
-    fun solicitarViaje(coordenadaActual: Int,coordenadaDestino: Int,coorChofer: Conductor): Float{
-        var diferenciaCoordenadas = coorChofer.getCoordenadasConductor() - coordenadaActual
-        var tiempoLlegada: Float = diferenciaCoordenadas.toFloat()
-        val proximidad = diferenciaCoordenadas.toInt()
+    //Funcion para solicitar  un viaje
+    fun solicitarViaje(coorChofer: Int, coordenadaActual: Int): Float{
+        var diferenciaCoordenadas = coorChofer- coordenadaActual
+        var proximidad = diferenciaCoordenadas
+        var tiempoLlegada = diferenciaCoordenadas.toFloat()
         when (proximidad){
             0 -> println("Su chofer ha llegado")
             in 1..100 ->{
                 for(i: Int in proximidad downTo -1){
-                    tiempoLlegada-= condor
+                    tiempoLlegada-= contadorTiempo
                     if (tiempoLlegada <= 0) {
                         break
                     } else {
                         println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        condor ++
+                        contadorTiempo ++
+                    }
+
+                    if (tiempoLlegada.toInt() == 0) {
+                        println("Su chofer ha llegado")
                     }
 
                 }
@@ -124,12 +128,17 @@ class Usuario: Viaje(), CancelarViaje, Promocion {
 
             in 100..200 ->{
                 for(i: Int in proximidad downTo -1){
-                    tiempoLlegada-= condor
+                    tiempoLlegada-= contadorTiempo
                     if ( tiempoLlegada < 0 ) {
                         break
                     } else {
                         println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        condor ++
+                        contadorTiempo ++
+
+                    }
+
+                    if (tiempoLlegada.toInt() == 0) {
+                        println("Su chofer ha llegado")
                     }
 
 
@@ -138,22 +147,63 @@ class Usuario: Viaje(), CancelarViaje, Promocion {
 
             in 200..250 -> {
                 for (i: Int in proximidad downTo -1){
-                    tiempoLlegada-= condor
+                    tiempoLlegada-= contadorTiempo
                     if (tiempoLlegada < 0) {
                         break
                     } else {
                         println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        condor ++
+                        contadorTiempo ++
                     }
 
+                    if (tiempoLlegada.toInt() == 0) {
+                        println("Su chofer ha llegado")
+                    }
                 }
 
-            }else -> {
+            }
 
+            in 250..350 -> {
+                for (i: Int in proximidad downTo -1){
+                    tiempoLlegada-= contadorTiempo
+                    if (tiempoLlegada < 0) {
+                        break
+                    } else {
+                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                        contadorTiempo ++
+                    }
+
+                    if (tiempoLlegada.toInt() == 0) {
+                        println("Su chofer ha llegado")
+                    }
+                }
+
+            }
+
+            in 350..650 -> {
+                for (i: Int in proximidad downTo -1){
+                    tiempoLlegada-= contadorTiempo
+                    if (tiempoLlegada < 0) {
+                        break
+                    } else {
+                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                        contadorTiempo ++
+                    }
+
+                    if (tiempoLlegada.toInt() == 0) {
+                        println("Su chofer ha llegado")
+                    }
+                }
+
+            }
+
+            else -> {
                 println("Su chofer esta muy lejos de su ubicacion")
+                println()
+                println("Cancelación de Viaje!!")
+                cancelarViaje()
+
             }
         }
-
         return proximidad.toFloat()
     }
 
@@ -174,12 +224,13 @@ class Usuario: Viaje(), CancelarViaje, Promocion {
     override fun cancelarViaje() {
         if (reserved) {
             reserved = false
-            paidAmount = 0
+            paidAmount = 0f
             println("Viaje se ha cancelado exitosamente")
         } else {
             println("No has hecho ningun viaje")
         }
     }
+
     fun registroUsuario(usuario: String,password: String, pago: String){ //Comprobacion que en el registro no tenga valores invalidos
         if(usuario.isEmpty()||password.isEmpty()){
             println("No ingreso un dato valido")
@@ -189,15 +240,16 @@ class Usuario: Viaje(), CancelarViaje, Promocion {
             this.estatus="Usuario Registrado"
             println("Registro exitoso")}
     }
+
     //Costo de viaje
-    fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
+   public override fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
         var distancia: Int = (coorDestino - coorActual)
         var precioViaje: Float = (PRECIO_POR_COR * distancia.toFloat()) + PRECIO_BASE
         return precioViaje
     }
 
     //
-    public fun estadoViaje(viajeObj: String){
+    public override fun estadoViaje(viajeObj: String){
         when(viajeObj){
             "Viaje Terminado" -> {
                 println()
@@ -206,10 +258,5 @@ class Usuario: Viaje(), CancelarViaje, Promocion {
             else -> println("Aun no acaba su viaje")
 
         }
-    }
-
-    override fun getPrice(coordenadaDestino: Int): Int {
-        val lugar = coordenadaDestino
-        return if (lugar==null) 0 else lugar * coordenadaDestino //regresamos 0 si no hay tarifa, si sí, hacemos el cálculo
     }
 }

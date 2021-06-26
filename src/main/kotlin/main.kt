@@ -2,8 +2,8 @@
 package Proyecto
 import java.util.*
 import kotlin.system.exitProcess
-const val PRECIO_BASE = 30
-const val PRECIO_POR_COR : Int = 5
+const val PRECIO_BASE = 2
+const val PRECIO_POR_COR = .5f
 fun main() {
 
     val usuario = Usuario()
@@ -80,23 +80,37 @@ fun main() {
 
                         println()
                         // Muestra los datos del conductor
-                        val conductor = Conductor("Juan", 100, Automovil("Nissan", "Azul", "Versa"))
+                        val conductor = Conductor("Juan", 1000, Automovil("Nissan", "Azul", "Versa"))
                         println()
-                        usuario.solicitarViaje(coordenadasActuales,coordenadaDestino,conductor)
+
+                        usuario.solicitarViaje(conductor.getCoordenadasConductor(), coordenadasActuales)
+
                         do {
+                            println()
                             println("Desea cancelar su viaje")
                             println("1.- Si")
                             println("2.- No")
                             var opcionMenu2= readLine()?.toInt()
                             when(opcionMenu2){
                                 1 -> {
+                                    println()
+                                    println("Se le descontara por cancelar el viaje: ${usuario.obtenerPenalizacion(100)}")
                                     usuario.cancelarViaje()
+
                                 }
 
                                 2 -> {
                                     println()
-                                    //Escribe el código a ejecutar
+                                    usuario.llegadaDestino(coordenadasActuales, coordenadaDestino)
+                                    println()
                                     println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
+
+                                    // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de 200
+                                    if (usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) > 1000) {
+                                        var descuento = usuario.getDiscountPrice(200)
+                                        println("Obtienes un descuento de ${descuento}")
+                                        println("El total que pagarías es de ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) - descuento}")
+                                    }
                                     println()
                                     usuario.estadoViaje("Viaje Terminado")
                                     break
@@ -108,7 +122,7 @@ fun main() {
                                 }
                             }
 
-                        }while (!Salidado)
+                        }while (opcionMenu2 != 1 && opcionMenu2 != 2)
 
                         break
                     } else
