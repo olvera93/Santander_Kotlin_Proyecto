@@ -8,7 +8,7 @@ fun main() {
 
     val usuario = Usuario()
 
-    var Salidado = false
+    var salida = false
     var pago:String = ""
 
     //Menu Inicio de sesion, Registrar usuario y salir de la aplicacion
@@ -94,22 +94,23 @@ fun main() {
                             when(opcionMenu2){
                                 1 -> {
                                     println()
-                                    println("Se le descontara por cancelar el viaje: ${usuario.obtenerPenalizacion(100)}")
+                                    println("Se le descontara por cancelar el viaje: $${usuario.obtenerPenalizacion(100)}")
                                     usuario.cancelarViaje()
 
                                 }
 
                                 2 -> {
                                     println()
+                                    // Muesta el tiempo en el que el usuario podría llegar a su destino
                                     usuario.llegadaDestino(coordenadasActuales, coordenadaDestino)
                                     println()
                                     println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
 
-                                    // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de 200
+                                    // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de un monto de $200
                                     if (usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) > 1000) {
-                                        var descuento = usuario.getDiscountPrice(200)
-                                        println("Obtienes un descuento de ${descuento}")
-                                        println("El total que pagarías es de ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) - descuento}")
+                                        var descuento = usuario.obtenerDescuento(200)
+                                        println("Obtienes un descuento de $${descuento}")
+                                        println("El total que pagarías es de $${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) - descuento}")
                                     }
                                     println()
                                     usuario.estadoViaje("Viaje Terminado")
@@ -126,18 +127,16 @@ fun main() {
 
                         break
                     } else
-                        Salidado = false
+                        salida = false
                 }
             }
 
-                3 -> Salidado=true
+                3 -> salida = true
                 else ->{
                     println()
                     println("OPCIÓN INVALIDA!!")
                 }
             }
 
-        }while (!Salidado)
-// Impresion
-//println("$nombreCliente verifica las placas y la foto del conductor")
+        }while (!salida)
     }

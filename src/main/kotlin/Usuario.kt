@@ -12,8 +12,8 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     private var coorDestino: Int = 0
     var contadorTiempo: Int = 0
 
-    override  val discount = 10 //es porcentaje, o sea 10%
-    override val typeDiscount = 0 //0 para porcentaje, 1 para cantidad
+    override  val descuento = 10 //es porcentaje, o sea 10%
+    override val tipoDescuento = 0 //0 para porcentaje, 1 para cantidad
     private var tipoPago: String = ""
 
         set(value) {
@@ -103,8 +103,8 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
 
     //Funcion para solicitar  un viaje
     fun solicitarViaje(coorChofer: Int, coordenadaActual: Int): Float{
-        var diferenciaCoordenadas = coorChofer- coordenadaActual
-        var proximidad = diferenciaCoordenadas
+        val diferenciaCoordenadas = coorChofer- coordenadaActual
+        val proximidad = diferenciaCoordenadas
         var tiempoLlegada = diferenciaCoordenadas.toFloat()
         when (proximidad){
             0 -> println("Su chofer ha llegado")
@@ -201,38 +201,26 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 println()
                 println("Cancelación de Viaje!!")
                 cancelarViaje()
-
             }
+
         }
         return proximidad.toFloat()
     }
 
-
-    //Funcion para validar que haya ingresado un metodo de pago
-    fun metodoDePago(pago:String): Boolean {
-        fun validate(input: String): Boolean {
-            if (input.isEmpty()) {
-                println("NO HA INGRESADO NINGUN METODO DE PAGO")
-                return false
-            }
-            return true
-        }
-        val pagoValidate = validate(pago)
-        return pagoValidate
-    }
-
+    // Funcion por si el usuario quiere cancelar su viaje
     override fun cancelarViaje() {
-        if (reserved) {
-            reserved = false
-            paidAmount = 0f
+        if (viajePedido) {
+            viajePedido = false
+            montoPagado = 0f
             println("Viaje se ha cancelado exitosamente")
         } else {
             println("No has hecho ningun viaje")
         }
     }
 
+    // Funcion para que el usuario se registre
     fun registroUsuario(usuario: String,password: String, pago: String){ //Comprobacion que en el registro no tenga valores invalidos
-        if(usuario.isEmpty()||password.isEmpty()){
+        if(usuario.isEmpty() || password.isEmpty() || pago.isEmpty()){
             println("No ingreso un dato valido")
         }else{
             this.usuario=usuario
@@ -243,12 +231,12 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
 
     //Costo de viaje
    public override fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
-        var distancia: Int = (coorDestino - coorActual)
-        var precioViaje: Float = (PRECIO_POR_COR * distancia.toFloat()) + PRECIO_BASE
+        val distancia: Int = (coorDestino - coorActual)
+        val precioViaje: Float = (PRECIO_POR_COR * distancia.toFloat()) + PRECIO_BASE
         return precioViaje
     }
 
-    //
+    // Indica el estado del viaje
     public override fun estadoViaje(viajeObj: String){
         when(viajeObj){
             "Viaje Terminado" -> {
@@ -256,7 +244,6 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 estatus = "Viaje Terminado"
             }
             else -> println("Aun no acaba su viaje")
-
         }
     }
 }

@@ -2,11 +2,9 @@ package Proyecto
 
 abstract class Viaje {
 
-    protected var reserved = false
-    protected var paidAmount = 0f
+    protected var viajePedido = false
+    protected var montoPagado = 0f
     protected var contador: Int = 0
-
-
 
     // Funcion para el ingresar las coordenadas del usuario
     fun ingresarCoordenadas(coordenadaActual: Int, coordenadaDestino: Int): Boolean {
@@ -21,20 +19,20 @@ abstract class Viaje {
         val coorActualValidate = validate(coordenadaActual)
         val coorDestinoValidate = validate(coordenadaDestino)
 
-        if(reserved){
+        if(viajePedido){
             println("""¡Ya pediste tu viaje!""".trimMargin())
 
         }
         val amount = calcularCostoViaje(coordenadaActual,coordenadaDestino)
-        reserved = true
-        paidAmount = amount
+        viajePedido = true
+        montoPagado = amount
         println("""¡Viaje pedido exitosamente!""".trimMargin())
 
 
         return coorActualValidate && coorDestinoValidate
     }
 
-    //Funcion para solicitar  viaje
+    //Funcion que calcula el tiempo estimado al lugar del destino del usuario
     fun llegadaDestino(coordenadaActual: Int,coordenadaDestino: Int): Float{
         var diferenciaCoordenadas = coordenadaDestino - coordenadaActual
         var tiempoLlegada: Float = diferenciaCoordenadas.toFloat()
@@ -138,13 +136,17 @@ abstract class Viaje {
             }
             else -> {
                 println("Hay mucho tráfico")
+                println("Llegara en unos cuantos minutos...")
+
+                // Se implemento un sleep para desimular el tiempo que llega el usuario a su destino
+                Thread.sleep(10000)
+                println("Ha llegado a su destino")
+
             }
         }
 
         return proximidad.toFloat()
     }
-
-
 
     //es protected para que sólo se pueda obtener el valor numérico desde la clase
     protected abstract fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float

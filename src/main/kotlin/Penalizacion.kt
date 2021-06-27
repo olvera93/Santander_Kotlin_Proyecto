@@ -2,14 +2,14 @@ package Proyecto
 
 interface Penalizacion {
 
-    val discount: Int //el descuento en porcentaje o en cantidad
-    val typeDiscount: Int //porcentaje o cantidad
+    val descuento: Int //el descuento en porcentaje o en cantidad
+    val tipoDescuento: Int //porcentaje o cantidad
 
-    fun obtenerPenalizacion(amount:Int): Int{ //obtener el precio real ya con el descuento
-        return if(typeDiscount == 0) { //0 es porcentaje
-            (amount * (100-discount))/100
+    fun obtenerPenalizacion(monto:Int): Int{ //obtener el precio real ya con el descuento
+        return if(tipoDescuento == 0) { //0 es porcentaje
+            (monto * (100 - descuento)) / 100
         } else{ //cantidad específica
-            amount - discount
+            monto - descuento
         }
     }
 }
