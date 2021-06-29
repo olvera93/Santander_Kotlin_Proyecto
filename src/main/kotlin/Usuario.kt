@@ -1,11 +1,9 @@
 package Proyecto
-
 import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
 
 class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
-
     private var usuario: String = ""
     private var password: String = ""
     private var coorActuales: Int = 0
@@ -38,7 +36,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 Timer("SettingUp",false).schedule(3000){
                     field=before
                     println("Por favor $usuario no olvides tus pertenencias antes de bajar del vehiculo ")
-                    exitProcess(0)
+
                 }
             }
         }
@@ -112,6 +110,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 for(i: Int in proximidad downTo -1){
                     tiempoLlegada-= contadorTiempo
                     if (tiempoLlegada <= 0) {
+                        println("Su chofer ha llegado")
                         break
                     } else {
                         println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
@@ -230,7 +229,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     }
 
     //Costo de viaje
-   public override fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
+    public override fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
         val distancia: Int = (coorDestino - coorActual)
         val precioViaje: Float = (PRECIO_POR_COR * distancia.toFloat()) + PRECIO_BASE
         return precioViaje

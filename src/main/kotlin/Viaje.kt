@@ -12,8 +12,12 @@ abstract class Viaje {
             if (input == null || input.equals("")){
                 println("Error al ingresar coordenadas")
                 return false
+            }else if(coordenadaActual>500)
+            { return true
+            } else{
+                println("Coordenadas incorrectas")
+                return false
             }
-            return true
         }
 
         val coorActualValidate = validate(coordenadaActual)
@@ -23,9 +27,9 @@ abstract class Viaje {
             println("""¡Ya pediste tu viaje!""".trimMargin())
 
         }
-        val amount = calcularCostoViaje(coordenadaActual,coordenadaDestino)
-        viajePedido = true
-        montoPagado = amount
+        this.montoPagado = calcularCostoViaje(coordenadaActual,coordenadaDestino)
+        this.viajePedido = true
+        /*montoPagado = amount*/
         println("""¡Viaje pedido exitosamente!""".trimMargin())
 
 
@@ -43,9 +47,10 @@ abstract class Viaje {
                 for(i: Int in proximidad downTo 0){
                     tiempoLlegada-= contador
                     if (tiempoLlegada <= 0) {
+                        println("Ha llegado a su destino")
                         break
                     } else {
-                        println("Tardaras en llagar ${((tiempoLlegada)).toInt()} segundos")
+                        println("Tardaras en llegar ${((tiempoLlegada)).toInt()} segundos")
                         contador ++
                     }
 
@@ -62,7 +67,7 @@ abstract class Viaje {
                     if ( tiempoLlegada < 0 ) {
                         break
                     } else {
-                        println("Tardaras en llagar ${((tiempoLlegada)).toInt()} segundos")
+                        println("Tardaras en llegar ${((tiempoLlegada)).toInt()} segundos")
                         contador ++
                     }
 
@@ -78,7 +83,7 @@ abstract class Viaje {
                     if (tiempoLlegada < 0) {
                         break
                     } else {
-                        println("Tardaras en llagar ${((tiempoLlegada)).toInt()} segundos")
+                        println("Tardaras en llegar ${((tiempoLlegada)).toInt()} segundos")
                         contador ++
                     }
 
@@ -94,7 +99,7 @@ abstract class Viaje {
                     if (tiempoLlegada < 0) {
                         break
                     } else {
-                        println("Tardaras en llagar ${((tiempoLlegada)).toInt()} segundos")
+                        println("Tardaras en llegar ${((tiempoLlegada)).toInt()} segundos")
                         contador ++
                     }
                     if (tiempoLlegada.toInt() == 0) {

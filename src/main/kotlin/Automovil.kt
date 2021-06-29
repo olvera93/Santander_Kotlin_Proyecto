@@ -2,10 +2,10 @@ package Proyecto
 
 class Automovil {
 
-   private var color: String = ""
-   private var marca: String = ""
-   private var modelo:String = ""
-   private var placas: String = ""
+    private var color: String = ""
+    private var marca: String = ""
+    private var modelo:String = ""
+    private var placas: String = ""
 
 
     constructor (marca: String, color: String, modelo: String){

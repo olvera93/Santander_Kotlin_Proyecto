@@ -3,7 +3,7 @@ package Proyecto
 class Conductor {
     private var nombre: String = ""
     private var coordenadasConductor: Int = 0
-
+    private var Calificacion = 4.5f
     private lateinit var automovil: Automovil
 
     constructor(nombre:String, coordenas: Int, automovil: Automovil) {
@@ -15,8 +15,8 @@ class Conductor {
             Nombre: ${this.nombre}
             Coordenadas: ${this.coordenadasConductor}
             Datos del Automovil:
-            Marca: ${this.automovil.getMarca()}
-            Modelo: ${this.automovil.getModelo()}
+            Marca: ${automovil.getMarca()}
+            Modelo: ${automovil.getModelo()}
             Color: ${this.automovil.getColor()}
             Placas: ${this.automovil.getPlacas()}""")
     }
@@ -36,5 +36,7 @@ class Conductor {
     fun setCoordenadasConductor(coordenas: Int) {
         this.coordenadasConductor = coordenas
     }
-
+    fun asignarCalificacion(Calif: Float) {
+        this.Calificacion=Calif
+    }
 }
