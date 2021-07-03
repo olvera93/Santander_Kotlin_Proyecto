@@ -12,12 +12,9 @@ abstract class Viaje {
             if (input == null || input.equals("")){
                 println("Error al ingresar coordenadas")
                 return false
-            }else if(coordenadaActual>500)
-            { return true
-            } else{
-                println("Coordenadas incorrectas")
-                return false
             }
+
+             return true
         }
 
         val coorActualValidate = validate(coordenadaActual)

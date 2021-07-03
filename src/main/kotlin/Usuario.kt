@@ -36,7 +36,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 Timer("SettingUp",false).schedule(3000){
                     field=before
                     println("Por favor $usuario no olvides tus pertenencias antes de bajar del vehiculo ")
-
+                    exitProcess(0)
                 }
             }
         }

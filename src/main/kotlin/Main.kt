@@ -76,7 +76,9 @@ fun main() {
                         var coordenadaDestino = readLine()!!.toInt()
                         usuario.setCoorActuales(coordenadasActuales)
                         usuario.setCoorDestino(coordenadaDestino)
-                        usuario.ingresarCoordenadas(usuario.getCoorActuales(), usuario.getCoorDestino())
+
+                        usuario.ingresarCoordenadas(coordenadasActuales, coordenadaDestino)
+
 
                         println()
                         // Muestra los datos del conductor
@@ -127,9 +129,15 @@ fun main() {
                                         }
                                     }
                                     println()
+
+                                    print("Ingrese la calificacion del chofer: ")
+                                    val calificacion = readLine()!!.toInt()
+                                    println()
+                                    print("${conductor.asignarCalificacion(calificacion)}")
+
+                                    println()
                                     usuario.estadoViaje("Viaje Terminado")
-                                    println("Ingrese la calificacion del chofer")
-                                    conductor.asignarCalificacion(readLine()!!.toFloat())
+
 
                                     break
                                 }

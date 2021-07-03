@@ -3,7 +3,7 @@ package Proyecto
 class Conductor {
     private var nombre: String = ""
     private var coordenadasConductor: Int = 0
-    private var Calificacion = 4.5f
+    private var calificacion = 4.5f
     private lateinit var automovil: Automovil
 
     constructor(nombre:String, coordenas: Int, automovil: Automovil) {
@@ -36,7 +36,20 @@ class Conductor {
     fun setCoordenadasConductor(coordenas: Int) {
         this.coordenadasConductor = coordenas
     }
-    fun asignarCalificacion(Calif: Float) {
-        this.Calificacion=Calif
+
+    // Funcion lambda que
+    val asignarCalificacion: (Int) -> String = { calif: Int ->
+
+        when (calif) {
+            1 -> "*"
+            2 -> "* *"
+            3 -> "* * *"
+            4 -> "* * * *"
+            5 -> "* * * * *"
+            else -> {
+                "Valor incorrecto"
+            }
+        }
     }
+
 }
