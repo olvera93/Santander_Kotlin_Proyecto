@@ -1,5 +1,6 @@
 package Proyecto
 
+import Comentario
 import java.util.*
 import kotlin.system.exitProcess
 const val PRECIO_BASE = 2
@@ -7,7 +8,6 @@ const val PRECIO_POR_COR = .5f
 fun main() {
 
     val usuario = Usuario()
-
     var salida = false
     var pago:String = ""
 
@@ -133,11 +133,13 @@ fun main() {
                                     print("Ingrese la calificacion del chofer: ")
                                     val calificacion = readLine()!!.toInt()
                                     println()
-                                    print("${conductor.asignarCalificacion(calificacion)}")
+                                    println("${conductor.asignarCalificacion(calificacion)}")
+
+                                    println()
+                                    Comentario.Companion.ingresarComentario()
 
                                     println()
                                     usuario.estadoViaje("Viaje Terminado")
-
 
                                     break
                                 }

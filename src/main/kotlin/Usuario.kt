@@ -1,4 +1,6 @@
 package Proyecto
+
+import Comentario
 import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
@@ -245,4 +247,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
             else -> println("Aun no acaba su viaje")
         }
     }
+
+
+
 }

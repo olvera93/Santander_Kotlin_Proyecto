@@ -37,7 +37,7 @@ class Conductor {
         this.coordenadasConductor = coordenas
     }
 
-    // Funcion lambda que
+    // Funcion lambda para asignarle una calificacion al conductor
     val asignarCalificacion: (Int) -> String = { calif: Int ->
 
         when (calif) {
