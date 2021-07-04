@@ -1,7 +1,7 @@
 package Proyecto
 
 class FormaPago {
-    var Credito=1000f
+    var Credito=10000f
 
     open fun Pago(Monto:Float):Boolean{
         if(Credito>Monto){

@@ -55,6 +55,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     fun getUsuario(): String {
         return usuario
     }
+
     fun setUsuario(usuario: String) {
         if(usuario.isEmpty()){
             println("No ingreso un dato valido")
@@ -62,12 +63,15 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
             this.usuario = usuario
         }
     }
+
     fun getPassword(): String {
         return password
     }
+
     fun setPassword(password: String) {
         this.password = password
     }
+
     fun getCoorActuales(): Int {
         return coorActuales
     }
@@ -88,15 +92,19 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 println("Falta un parametro")
                 return false
             }else if(input==this.usuario && input2==this.password){
+                println()
+                println("**********************")
                 println("Bienvenido $usuario")
+                println("**********************")
+                println()
                 this.estatus = "Solicitando Viaje"
-                //println("${this.estatus}")
                 return true
             }
             else
                 println("Usuario o contraseña incorrectos")
             return false
         }
+
         val userValidate = validate(user,password)
         return userValidate
     }
@@ -226,7 +234,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
         }else{
             this.usuario=usuario
             this.password=password
-            this.estatus="Usuario Registrado"
+            println()
             println("Registro exitoso")}
     }
 

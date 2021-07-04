@@ -1,8 +1,7 @@
 package Proyecto
 
 import Comentario
-import java.util.*
-import kotlin.system.exitProcess
+
 const val PRECIO_BASE = 2
 const val PRECIO_POR_COR = .5f
 fun main() {
@@ -82,7 +81,7 @@ fun main() {
 
                         println()
                         // Muestra los datos del conductor
-                        val conductor = Conductor("Juan", 100, Automovil("Nissan", "Azul", "Versa"))
+                        val conductor = Conductor("Juan",100, Automovil("Nissan", "Azul", "Versa"))
                         println()
 
                         usuario.solicitarViaje(conductor.getCoordenadasConductor(), coordenadasActuales)
@@ -109,12 +108,7 @@ fun main() {
                                     var montoF=usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)
                                     println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
                                     var forma=FormaPago()
-                                    if (forma.Pago(montoF)){
-                                        println("Viaje Pagado Exitosamente")
-                                    }
-                                        else{
-                                            println("No se pudo realizar el pago")
-                                    }
+                                    println()
                                     // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de un monto de $200
                                     if (usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) > 500) {
                                         var descuento = usuario.obtenerDescuento(200)
@@ -125,6 +119,7 @@ fun main() {
                                             println("Viaje Pagado Exitosamente")
                                         }
                                         else{
+
                                             println("No se pudo realizar el pago")
                                         }
                                     }
@@ -133,9 +128,7 @@ fun main() {
                                     print("Ingrese la calificacion del chofer: ")
                                     val calificacion = readLine()!!.toInt()
                                     println()
-                                    println("${conductor.asignarCalificacion(calificacion)}")
-
-                                    println()
+                                    println("La califación del conductor es de: ${conductor.asignarCalificacion(calificacion)}")
                                     Comentario.Companion.ingresarComentario()
 
                                     println()

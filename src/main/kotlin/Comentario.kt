@@ -7,6 +7,7 @@ class Comentario {
 
         fun ingresarComentario() {
             val sc = Scanner(System.`in`)
+            println()
             println("Ingresa un comentario al conductor: ")
             comentario = sc.nextLine()
         }

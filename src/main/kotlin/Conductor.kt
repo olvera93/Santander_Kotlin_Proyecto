@@ -3,8 +3,7 @@ package Proyecto
 class Conductor {
     private var nombre: String = ""
     private var coordenadasConductor: Int = 0
-    private var calificacion = 4.5f
-    private lateinit var automovil: Automovil
+    private var automovil: Automovil
 
     constructor(nombre:String, coordenas: Int, automovil: Automovil) {
         this.nombre = nombre
