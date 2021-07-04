@@ -51,4 +51,18 @@ class Conductor {
         }
     }
 
+    //Funcion Lambda para asignarle un reconocimiento al conductor
+    val asignarReconocimiento: (Int) -> String = { Recon: Int ->
+
+        when (Recon) {
+            1 -> "Auto limpio"
+            2 -> "Buena conversacion"
+            3 -> "Heroe de ultima hora"
+            4 -> "Navegador experto"
+            else -> {
+                "Valor incorrecto"
+            }
+        }
+    }
+
 }

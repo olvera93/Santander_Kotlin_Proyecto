@@ -132,6 +132,12 @@ fun main() {
                                     Comentario.Companion.ingresarComentario()
 
                                     println()
+                                    println("Ingrese un reconocimiento al chofer: 1 Auto limpio, 2 Buena conversacion, 3 Heroe 4 Experto")
+                                    val reconocmiento = readLine()!!.toInt()
+                                    println()
+                                    println("El reconocimiento del conductor es: ${conductor.asignarReconocimiento(reconocmiento)}")
+
+                                    println()
                                     usuario.estadoViaje("Viaje Terminado")
 
                                     break
