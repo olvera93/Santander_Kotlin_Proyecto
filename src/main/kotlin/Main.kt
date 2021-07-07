@@ -142,7 +142,16 @@ fun main() {
                                     val reconocmiento = readLine()!!.toInt()
                                     println()
                                     println("El reconocimiento del conductor es: ${conductor.asignarReconocimiento(reconocmiento)}")
-
+                                    println()
+                                    val reconocimiento1 = Conductor.Reconocimiento("Navegador Experto","Alexa Lopez",20.0)
+                                    println("El reconocimiento mas frecuente del conductor es:")
+                                    println(reconocimiento1.insignia)
+                                    reconocimiento1.createdAt = "Obtenido por primera vez en 2019"
+                                    println(reconocimiento1.createdAt)
+                                    println("El reconocimiento fue otorgado por primera vez por:")
+                                    println(reconocimiento1.Primeravez)
+                                    println("Veces que el conductor ha obtenido el reconocimiento:")
+                                    println(reconocimiento1.VecesObtenido)
                                     println()
                                     usuario.estadoViaje("Viaje Terminado")
 

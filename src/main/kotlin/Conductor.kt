@@ -4,13 +4,15 @@ class Conductor {
     private var nombre: String = ""
     private var coordenadasConductor: Int = 0
     private var automovil: Automovil
-    private val Calificaciones = listOf(5,4,3,5,5,5,5)
-    constructor(nombre:String, coordenas: Int, automovil: Automovil) {
+    private val Calificaciones = listOf(5, 4, 3, 5, 5, 5, 5)
+
+    constructor(nombre: String, coordenas: Int, automovil: Automovil) {
         this.nombre = nombre
         this.coordenadasConductor = coordenas
         this.automovil = automovil
-        val promedio = Calificaciones.sum()/Calificaciones.size.toDouble()
-        println("""Los datos del conductor son:
+        val promedio = Calificaciones.sum() / Calificaciones.size.toDouble()
+        println(
+            """Los datos del conductor son:
             Nombre: ${this.nombre}
             Coordenadas: ${this.coordenadasConductor}
             Datos del Automovil:
@@ -18,7 +20,8 @@ class Conductor {
             Modelo: ${automovil.getModelo()}
             Color: ${this.automovil.getColor()}
             Placas: ${this.automovil.getPlacas()}
-            Calificacion: ${promedio}/""")
+            Calificacion: ${promedio}/"""
+        )
     }
 
     fun getNombre(): String {
@@ -66,4 +69,12 @@ class Conductor {
         }
     }
 
+    data class Reconocimiento(
+        val insignia: String,
+        val Primeravez: String,
+        val VecesObtenido: Double
+    ) {
+        var createdAt = ""
+
+    }
 }
