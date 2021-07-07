@@ -1,7 +1,8 @@
 package Proyecto
 
 import Comentario
-
+import java.text.SimpleDateFormat
+import java.util.*
 const val PRECIO_BASE = 2
 const val PRECIO_POR_COR = .5f
 fun main() {
@@ -14,7 +15,7 @@ fun main() {
     do {
         println()
         println("Bienvenido a Carpool.")
-        println("Por favor ingrese una opcion para utilizar nuestra aplicacion")
+        println("Por favor ingrese el numero correspondiente de opcion para utilizar nuestra aplicacion")
         println("1.- Registrarse")
         println("2.- Iniciar Sesion")
         println("3.- Salir de la aplicacion")
@@ -23,7 +24,7 @@ fun main() {
             1 -> {
                 println()
                 println("Usted selecciono Registro")
-                print("Ingresa tu nombre: ")
+                print("Ingresa tu nombre de usuario: ")
                 val nombreUsuario = readLine().toString()
                 print("Ingresa tu contraseña: ")
                 val passwordUsuario = readLine().toString()
@@ -56,6 +57,8 @@ fun main() {
                 println()
                 println("Usted selecciono Iniciar Sesion")
                 //login de usuario
+
+
                 print("Ingresa tu nombre: ")
                 val nombreUsuario = readLine().toString()
                 print("Ingresa tu contraseña: ")
@@ -69,6 +72,9 @@ fun main() {
                         Coordenadas actuales en donde está ubicado actualmente
                         Coordenadas destino a donde quiere ir
                          */
+                        val now = Date()
+                        val formatDate = SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz")
+                        println("La fecha actual es: ${formatDate.format(now)}")
                         print("Ingrese sus coordenadas actuales: ")
                         var coordenadasActuales = readLine()!!.toInt()
                         print("Ingrese las coordenadas de su destino: ")
@@ -95,7 +101,7 @@ fun main() {
                             when(opcionMenu2){
                                 1 -> {
                                     println()
-                                    println("Se le descontara por cancelar el viaje: $${usuario.obtenerPenalizacion(100)}")
+                                    println("Se le descontara: $${usuario.obtenerPenalizacion(100)} pesos por cancelar el viaje: ")
                                     usuario.cancelarViaje()
 
                                 }
@@ -111,7 +117,7 @@ fun main() {
                                     println()
                                     // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de un monto de $200
                                     if (usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) > 500) {
-                                        var descuento = usuario.obtenerDescuento(200)
+                                        var descuento = usuario.ObtenerDescuento(200)
                                         println("Obtienes un descuento de $${descuento}")
                                         println("El total que pagarías es de $${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) - descuento}")
                                         montoF=usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)-descuento
@@ -125,11 +131,11 @@ fun main() {
                                     }
                                     println()
 
-                                    print("Ingrese la calificacion del chofer: ")
+                                    print("Ingrese la calificacion del chofer del 1 al 5")
                                     val calificacion = readLine()!!.toInt()
                                     println()
                                     println("La califación del conductor es de: ${conductor.asignarCalificacion(calificacion)}")
-                                    Comentario.Companion.ingresarComentario()
+                                    Comentario.ingresarComentario()
 
                                     println()
                                     println("Ingrese un reconocimiento al chofer: 1 Auto limpio, 2 Buena conversacion, 3 Heroe 4 Experto")

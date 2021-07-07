@@ -5,6 +5,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
 
+
 class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     private var usuario: String = ""
     private var password: String = ""
@@ -14,6 +15,9 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
 
     override  val descuento = 10 //es porcentaje, o sea 10%
     override val tipoDescuento = 0 //0 para porcentaje, 1 para cantidad
+
+    override val ObtenerDescuento : (Int) -> Int ={it ->
+        (it* 100-descuento)/100}
     private var tipoPago: String = ""
 
         set(value) {

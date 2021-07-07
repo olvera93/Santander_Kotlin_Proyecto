@@ -1,5 +1,8 @@
 package Proyecto
 
+import java.util.Date
+import java.text.SimpleDateFormat
+
 abstract class Viaje {
 
     protected var viajePedido = false
