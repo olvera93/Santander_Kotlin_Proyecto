@@ -3,6 +3,8 @@ package Proyecto
 import java.util.*
 
 class Comentario {
+
+    // El usuario puede agregarle un comentario al conductor
     companion object {
         private var comentario: String? = null
 

@@ -2,8 +2,11 @@ package Proyecto
 
 class Conductor {private var nombre: String = ""
     private var coordenadasConductor: Int = 0
-    private var automovil: Automovil
+    private lateinit var automovil: Automovil
     private val calificaciones = listOf(5, 4, 3, 5, 5, 5, 5)
+
+    constructor() {
+    }
 
     constructor(nombre: String, coordenas: Int, automovil: Automovil) {
         this.nombre = nombre

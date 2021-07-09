@@ -12,12 +12,11 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     private var password: String = ""
     private var coorActuales: Int = 0
     private var coorDestino: Int = 0
-    var contadorTiempo: Int = 0
 
     override  val descuento = 10 //es porcentaje, o sea 10%
     override val tipoDescuento = 0 //0 para porcentaje, 1 para cantidad
 
-    override val ObtenerDescuento : (Int) -> Int ={it ->
+    override val obtenerDescuento : (Int) -> Int ={it ->
         (it* 100-descuento)/100}
     private var tipoPago: String = ""
 
@@ -120,140 +119,15 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
         return userValidate
     }
 
-    //Funcion para solicitar  un viaje
-    fun solicitarViaje(coorChofer: Int, coordenadaActual: Int): Float{
-        val diferenciaCoordenadas = coorChofer- coordenadaActual
-        val proximidad = diferenciaCoordenadas
-        var tiempoLlegada = diferenciaCoordenadas.toFloat()
-        when (proximidad){
-            0 -> println("Su chofer ha llegado")
-            in 1..100 ->{
-                /*
-                Se agrega un pequeño de delay para simular el tiempo en el que llega el conductor
-                Y si el conductor esta muy lejos el tiempo de espera es mas largo
-                 */
-                runBlocking {
-                    for(i: Int in proximidad downTo -1){
-                        tiempoLlegada-= contadorTiempo
-                        if (tiempoLlegada <= 0) {
-                            println("Su chofer ha llegado")
-                            break
-                        } else {
-                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                            contadorTiempo ++
-                        }
 
-                        if (tiempoLlegada.toInt() == 0) {
-                            println("Su chofer ha llegado")
-                        }
-                        delay(500L)
-
-                    }
-                }
-
-
-            }
-
-            in 100..200 ->{
-                runBlocking {
-                    for(i: Int in proximidad downTo -1){
-                        tiempoLlegada-= contadorTiempo
-                        if ( tiempoLlegada < 0 ) {
-                            break
-                        } else {
-                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                            contadorTiempo ++
-                        }
-
-                        if (tiempoLlegada.toInt() == 0) {
-                            println("Su chofer ha llegado")
-                        }
-                    }
-                    delay(500L)
-                }
-
-            }
-
-            in 200..250 -> {
-                runBlocking {
-                    for (i: Int in proximidad downTo -1){
-                        tiempoLlegada-= contadorTiempo
-                        if (tiempoLlegada < 0) {
-                            break
-                        } else {
-                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                            contadorTiempo ++
-                        }
-
-                        if (tiempoLlegada.toInt() == 0) {
-                            println("Su chofer ha llegado")
-                        }
-                    }
-                    delay(500L)
-                }
-
-
-            }
-
-            in 250..350 -> {
-                runBlocking {
-                    for (i: Int in proximidad downTo -1){
-                        tiempoLlegada-= contadorTiempo
-                        if (tiempoLlegada < 0) {
-                            break
-                        } else {
-                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                            contadorTiempo ++
-                        }
-
-                        if (tiempoLlegada.toInt() == 0) {
-                            println("Su chofer ha llegado")
-                        }
-                    }
-                    delay(500L)
-                }
-
-
-            }
-
-            in 350..650 -> {
-                runBlocking {
-                    for (i: Int in proximidad downTo -1){
-                        tiempoLlegada-= contadorTiempo
-                        if (tiempoLlegada < 0) {
-                            break
-                        } else {
-                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                            contadorTiempo ++
-                        }
-
-                        if (tiempoLlegada.toInt() == 0) {
-                            println("Su chofer ha llegado")
-                        }
-                    }
-                    delay(500L)
-                }
-
-
-            }
-
-            else -> {
-                runBlocking {
-                    delay(1500L)
-                    println("Su chofer esta muy lejos de su ubicacion")
-                }
-            }
-
-        }
-        return proximidad.toFloat()
-    }
 
     // Funcion por si el usuario quiere cancelar su viaje
     override fun cancelarViaje() {
         if (viajePedido) {
             viajePedido = false
             montoPagado = 0f
-            println("Viaje se ha cancelado exitosamente")
+            println()
+            println("¡Viaje se ha cancelado exitosamente!")
         } else {
             println("No has hecho ningun viaje")
         }
@@ -270,7 +144,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
             println("Registro exitoso")}
     }
 
-    //Costo de viaje
+    // Funcion que calcula el costo del viaje
     public override fun calcularCostoViaje(coorActual: Int, coorDestino: Int): Float {
         val distancia: Int = (coorDestino - coorActual)
         val precioViaje: Float = (PRECIO_POR_COR * distancia.toFloat()) + PRECIO_BASE

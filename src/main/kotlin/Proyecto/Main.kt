@@ -1,17 +1,51 @@
 package Proyecto
 
 
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+
 const val PRECIO_BASE = 2
 const val PRECIO_POR_COR = .5f
-fun main() {
+
+
+
+private suspend fun fetchConductorCoroutine(username: String): Conductor =
+    suspendCancellableCoroutine { cancellableContinuation ->
+        fetchConductor(object : CallBack {
+            override fun onSuccess(conductor: Conductor) {
+                cancellableContinuation.resume(conductor)
+            }
+
+            override fun onFailure(exception: Exception) {
+                cancellableContinuation.resumeWithException(exception)
+            }
+        })
+    }
+
+private fun fetchConductor(callback: CallBack) {
+    Thread {
+        Thread.sleep(3_000)
+
+        callback.onSuccess(
+            // Muestra los datos del conductor
+            Conductor("Juan",100, Automovil("Nissan", "Azul", "Versa"))
+        )
+    }.start()
+}
+
+suspend fun main() {
 
     val usuario = Usuario()
     var salida = false
     var pago:String = ""
     var nombreUsuario: String = ""
     var passwordUsuario: String = ""
+    val conductor = Conductor()
 
         //Menu Inicio de sesion, Registrar usuario y salir de la aplicacion
     do {
@@ -87,10 +121,14 @@ fun main() {
 
                         usuario.ingresarCoordenadas(coordenadasActuales, coordenadaDestino)
 
-
-                        println()
                         // Muestra los datos del conductor
-                        val conductor = Conductor("Juan",100, Automovil("Nissan", "Azul", "Versa"))
+                        println()
+                        try {
+                            println("Asignando conductor a su viaje...")
+                            val conductor = fetchConductorCoroutine("Juan")
+                        } catch (exception: Exception) {
+                            println("Error: $exception")
+                        }
                         println()
 
                         usuario.solicitarViaje(conductor.getCoordenadasConductor(), coordenadasActuales)
@@ -118,9 +156,10 @@ fun main() {
                                     println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
                                     var forma=FormaPago()
                                     println()
+
                                     // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de un monto de $200
                                     if (usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) > 500) {
-                                        var descuento = usuario.ObtenerDescuento(200)
+                                        var descuento = usuario.obtenerDescuento(200)
                                         println("Obtienes un descuento de $${descuento}")
                                         println("El total que pagarías es de $${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino) - descuento}")
                                         montoF=usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)-descuento
@@ -128,7 +167,6 @@ fun main() {
                                             println("Viaje Pagado Exitosamente")
                                         }
                                         else{
-
                                             println("No se pudo realizar el pago")
                                         }
                                     }
@@ -157,7 +195,6 @@ fun main() {
                                     println(reconocimiento1.VecesObtenido)
                                     println()
                                     usuario.estadoViaje("Viaje Terminado")
-
                                     break
                                 }
 

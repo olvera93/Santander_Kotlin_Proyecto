@@ -1,11 +1,11 @@
 package Proyecto
 
 class FormaPago {
-    var Credito=10000f
+    var credito=10000f
 
-    open fun Pago(Monto:Float):Boolean{
-        if(Credito>Monto){
-            this.Credito -= Monto
+    open fun Pago(monto:Float):Boolean{
+        if (credito > monto){
+            this.credito -= monto
             return true
         }else{
             return false
