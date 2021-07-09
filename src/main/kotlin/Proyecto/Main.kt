@@ -1,6 +1,8 @@
 package Proyecto
 
 
+import Proyecto.entity.*
+import Proyecto.interfaces.CallBack
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -154,7 +156,7 @@ suspend fun main() {
                                     println()
                                     var montoF=usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)
                                     println("El costo de su viaje es: ${usuario.calcularCostoViaje(coordenadasActuales, coordenadaDestino)}")
-                                    var forma=FormaPago()
+                                    var forma= FormaPago()
                                     println()
 
                                     // La condicion es por si el precio es mayor a 1000 al usuario le haran un descuento de un monto de $200
