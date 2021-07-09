@@ -1,10 +1,12 @@
 package Proyecto
 
+import Comentario
 import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
 
-class Usuario : Viaje(), CancelarViaje, Promocion, Penalizacion {
+
+class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     private var usuario: String = ""
     private var password: String = ""
     private var coorActuales: Int = 0
