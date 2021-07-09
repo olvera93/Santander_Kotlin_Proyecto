@@ -3,13 +3,13 @@ package Proyecto
 class Conductor {private var nombre: String = ""
     private var coordenadasConductor: Int = 0
     private var automovil: Automovil
-    private val Calificaciones = listOf(5, 4, 3, 5, 5, 5, 5)
+    private val calificaciones = listOf(5, 4, 3, 5, 5, 5, 5)
 
     constructor(nombre: String, coordenas: Int, automovil: Automovil) {
         this.nombre = nombre
         this.coordenadasConductor = coordenas
         this.automovil = automovil
-        val promedio = Calificaciones.sum() / Calificaciones.size.toDouble()
+        val promedio = (calificaciones.sum() / calificaciones.size.toDouble())
         println(
             """Los datos del conductor son:
             Nombre: ${this.nombre}
@@ -19,8 +19,9 @@ class Conductor {private var nombre: String = ""
             Modelo: ${automovil.getModelo()}
             Color: ${this.automovil.getColor()}
             Placas: ${this.automovil.getPlacas()}
-            Calificacion: ${promedio}/"""
+            Calificacion: ${promedio}"""
         )
+
     }
 
     fun getNombre(): String {

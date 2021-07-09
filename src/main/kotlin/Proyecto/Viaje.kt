@@ -26,7 +26,8 @@ abstract class Viaje {
         }
         this.montoPagado = calcularCostoViaje(coordenadaActual,coordenadaDestino)
         this.viajePedido = true
-        /*montoPagado = amount*/
+
+        println()
         println("""¡Viaje pedido exitosamente!""".trimMargin())
 
 
@@ -41,6 +42,7 @@ abstract class Viaje {
         when (proximidad){
             0 -> println("Ha llegado a su destino")
             in 1..100 ->{
+
                 for(i: Int in proximidad downTo 0){
                     tiempoLlegada-= contador
                     if (tiempoLlegada <= 0) {

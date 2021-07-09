@@ -1,6 +1,7 @@
 package Proyecto
 
-import Comentario
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.system.exitProcess
@@ -101,7 +102,13 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
                 println("Bienvenido $usuario")
                 println("**********************")
                 println()
+
+                runBlocking {
+                    delay(1500L)
+                }
                 this.estatus = "Solicitando Viaje"
+                Thread.sleep(2000)
+
                 return true
             }
             else
@@ -121,99 +128,120 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
         when (proximidad){
             0 -> println("Su chofer ha llegado")
             in 1..100 ->{
-                for(i: Int in proximidad downTo -1){
-                    tiempoLlegada-= contadorTiempo
-                    if (tiempoLlegada <= 0) {
-                        println("Su chofer ha llegado")
-                        break
-                    } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        contadorTiempo ++
-                    }
+                /*
+                Se agrega un pequeño de delay para simular el tiempo en el que llega el conductor
+                Y si el conductor esta muy lejos el tiempo de espera es mas largo
+                 */
+                runBlocking {
+                    for(i: Int in proximidad downTo -1){
+                        tiempoLlegada-= contadorTiempo
+                        if (tiempoLlegada <= 0) {
+                            println("Su chofer ha llegado")
+                            break
+                        } else {
+                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                            contadorTiempo ++
+                        }
 
-                    if (tiempoLlegada.toInt() == 0) {
-                        println("Su chofer ha llegado")
-                    }
+                        if (tiempoLlegada.toInt() == 0) {
+                            println("Su chofer ha llegado")
+                        }
+                        delay(500L)
 
+                    }
                 }
+
 
             }
 
             in 100..200 ->{
-                for(i: Int in proximidad downTo -1){
-                    tiempoLlegada-= contadorTiempo
-                    if ( tiempoLlegada < 0 ) {
-                        break
-                    } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        contadorTiempo ++
+                runBlocking {
+                    for(i: Int in proximidad downTo -1){
+                        tiempoLlegada-= contadorTiempo
+                        if ( tiempoLlegada < 0 ) {
+                            break
+                        } else {
+                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                            contadorTiempo ++
+                        }
 
+                        if (tiempoLlegada.toInt() == 0) {
+                            println("Su chofer ha llegado")
+                        }
                     }
-
-                    if (tiempoLlegada.toInt() == 0) {
-                        println("Su chofer ha llegado")
-                    }
-
-
+                    delay(500L)
                 }
+
             }
 
             in 200..250 -> {
-                for (i: Int in proximidad downTo -1){
-                    tiempoLlegada-= contadorTiempo
-                    if (tiempoLlegada < 0) {
-                        break
-                    } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        contadorTiempo ++
-                    }
+                runBlocking {
+                    for (i: Int in proximidad downTo -1){
+                        tiempoLlegada-= contadorTiempo
+                        if (tiempoLlegada < 0) {
+                            break
+                        } else {
+                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                            contadorTiempo ++
+                        }
 
-                    if (tiempoLlegada.toInt() == 0) {
-                        println("Su chofer ha llegado")
+                        if (tiempoLlegada.toInt() == 0) {
+                            println("Su chofer ha llegado")
+                        }
                     }
+                    delay(500L)
                 }
+
 
             }
 
             in 250..350 -> {
-                for (i: Int in proximidad downTo -1){
-                    tiempoLlegada-= contadorTiempo
-                    if (tiempoLlegada < 0) {
-                        break
-                    } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        contadorTiempo ++
-                    }
+                runBlocking {
+                    for (i: Int in proximidad downTo -1){
+                        tiempoLlegada-= contadorTiempo
+                        if (tiempoLlegada < 0) {
+                            break
+                        } else {
+                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                            contadorTiempo ++
+                        }
 
-                    if (tiempoLlegada.toInt() == 0) {
-                        println("Su chofer ha llegado")
+                        if (tiempoLlegada.toInt() == 0) {
+                            println("Su chofer ha llegado")
+                        }
                     }
+                    delay(500L)
                 }
+
 
             }
 
             in 350..650 -> {
-                for (i: Int in proximidad downTo -1){
-                    tiempoLlegada-= contadorTiempo
-                    if (tiempoLlegada < 0) {
-                        break
-                    } else {
-                        println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
-                        contadorTiempo ++
-                    }
+                runBlocking {
+                    for (i: Int in proximidad downTo -1){
+                        tiempoLlegada-= contadorTiempo
+                        if (tiempoLlegada < 0) {
+                            break
+                        } else {
+                            println("Su Chofer tardara en llegar ${((tiempoLlegada)).toInt()} segundos")
+                            contadorTiempo ++
+                        }
 
-                    if (tiempoLlegada.toInt() == 0) {
-                        println("Su chofer ha llegado")
+                        if (tiempoLlegada.toInt() == 0) {
+                            println("Su chofer ha llegado")
+                        }
                     }
+                    delay(500L)
                 }
+
 
             }
 
             else -> {
-                println("Su chofer esta muy lejos de su ubicacion")
-                println()
-                println("Cancelación de Viaje!!")
-                cancelarViaje()
+                runBlocking {
+                    delay(1500L)
+                    println("Su chofer esta muy lejos de su ubicacion")
+                }
             }
 
         }

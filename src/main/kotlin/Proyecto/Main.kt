@@ -10,8 +10,10 @@ fun main() {
     val usuario = Usuario()
     var salida = false
     var pago:String = ""
+    var nombreUsuario: String = ""
+    var passwordUsuario: String = ""
 
-    //Menu Inicio de sesion, Registrar usuario y salir de la aplicacion
+        //Menu Inicio de sesion, Registrar usuario y salir de la aplicacion
     do {
         println()
         println("Bienvenido a Carpool.")
@@ -25,9 +27,9 @@ fun main() {
                 println()
                 println("Usted selecciono Registro")
                 print("Ingresa tu nombre de usuario: ")
-                val nombreUsuario = readLine().toString()
+                var nombreUsuario = readLine().toString()
                 print("Ingresa tu contraseña: ")
-                val passwordUsuario = readLine().toString()
+                var passwordUsuario = readLine().toString()
                 do{
                     print("Ingresa tu forma de pago: Efectivo o Tarjeta: ")
                     pago = readLine()!!.toString()
@@ -56,13 +58,14 @@ fun main() {
             2 -> {
                 println()
                 println("Usted selecciono Iniciar Sesion")
+
                 //login de usuario
-
-
                 print("Ingresa tu nombre: ")
-                val nombreUsuario = readLine().toString()
+                nombreUsuario = readLine().toString()
                 print("Ingresa tu contraseña: ")
-                val passwordUsuario = readLine().toString()
+                passwordUsuario = readLine().toString()
+
+
 
                 if (usuario.loginUsuario(nombreUsuario, passwordUsuario)) {
                     if (!usuario.getUsuario().equals("") && !usuario.getPassword().equals("")) {
@@ -73,7 +76,7 @@ fun main() {
                         Coordenadas destino a donde quiere ir
                          */
                         val now = Date()
-                        val formatDate = SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz")
+                        val formatDate = SimpleDateFormat("E dd.MM.yyyy 'at' hh:mm:ss a ")
                         println("La fecha actual es: ${formatDate.format(now)}")
                         print("Ingrese sus coordenadas actuales: ")
                         var coordenadasActuales = readLine()!!.toInt()
@@ -131,7 +134,7 @@ fun main() {
                                     }
                                     println()
 
-                                    print("Ingrese la calificacion del chofer del 1 al 5")
+                                    print("Ingrese la calificacion del chofer del 1 al 5: ")
                                     val calificacion = readLine()!!.toInt()
                                     println()
                                     println("La califación del conductor es de: ${conductor.asignarCalificacion(calificacion)}")
