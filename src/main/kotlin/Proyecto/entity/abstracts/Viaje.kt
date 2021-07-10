@@ -2,6 +2,7 @@ package Proyecto.entity.abstracts
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlin.math.abs
 
 abstract class Viaje {
 
@@ -193,7 +194,7 @@ abstract class Viaje {
 
     //Funcion para solicitar  un viaje
     fun solicitarViaje(coorChofer: Int, coordenadaActual: Int): Float{
-        val diferenciaCoordenadas = coorChofer- coordenadaActual
+        val diferenciaCoordenadas = abs(coorChofer- coordenadaActual)
         val proximidad = diferenciaCoordenadas
         var tiempoLlegada = diferenciaCoordenadas.toFloat()
         when (proximidad){

@@ -99,7 +99,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     fun loginUsuario(user: String, password: String): Boolean{
         fun validate(input: String, input2: String):Boolean {
             if (input.isEmpty() || input2.isEmpty()) {
-                println("Falta un parametro")
+                println("Falta llenar campos")
                 return false
             }else if(input==this.usuario && input2==this.password){
                 println()
@@ -142,7 +142,7 @@ class Usuario: Viaje(), CancelarViaje, Promocion, Penalizacion {
     // Funcion para que el usuario se registre
     fun registroUsuario(usuario: String,password: String, pago: String){ //Comprobacion que en el registro no tenga valores invalidos
         if(usuario.isEmpty() || password.isEmpty() || pago.isEmpty()){
-            println("No ingreso un dato valido")
+            println("Hizo falta llenar campos")
         }else{
             this.usuario=usuario
             this.password=password

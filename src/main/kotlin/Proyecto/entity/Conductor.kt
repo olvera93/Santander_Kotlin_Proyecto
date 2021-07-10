@@ -12,7 +12,7 @@ class Conductor {private var nombre: String = ""
         this.nombre = nombre
         this.coordenadasConductor = coordenas
         this.automovil = automovil
-        val promedio = (calificaciones.sum() / calificaciones.size.toDouble())
+        val promedio = (((calificaciones.sum() / calificaciones.size.toFloat()))*100).toInt()/100f
         println(
             """Los datos del conductor son:
             Nombre: ${this.nombre}
